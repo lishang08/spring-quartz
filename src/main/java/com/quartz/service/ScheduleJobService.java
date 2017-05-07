@@ -52,4 +52,18 @@ public interface ScheduleJobService {
 	 * @return
 	 */
 	public List<ScheduleJobVo> getScheduleJobList(ScheduleJobVo scheduleJobVo);
+	
+    /**
+     * 获取运行中的任务列表
+     *
+     * @return
+     */
+    public List<ScheduleJobVo> getExecutingJobList();
+	
+    /**
+     * 删除重新创建方式
+     * 
+     * @param scheduleJobVo
+     */
+    public void delUpdate(ScheduleJobVo scheduleJobVo);
 }

@@ -18,6 +18,10 @@ public class ScheduleJobVo extends Pageable{
 	 * 
 	 */
 	private static final long serialVersionUID = -8171899575924282014L;
+	
+    /** 任务调度的参数key */
+    public static final String JOB_PARAM_KEY    = "jobParam";
+
 	//定时任务id
 	private Long scheduleJobId;
     //定时任务名称	
