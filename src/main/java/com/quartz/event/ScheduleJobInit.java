@@ -2,7 +2,6 @@ package com.quartz.event;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +18,6 @@ import com.quartz.service.ScheduleJobService;
 @SuppressWarnings("restriction")
 @Component
 public class ScheduleJobInit {
-
-	private static final Logger LOGGER = Logger.getLogger(ScheduleJobInit.class);
 	
 	@Autowired
 	private ScheduleJobService scheduleJobService;
@@ -30,16 +27,7 @@ public class ScheduleJobInit {
      */
     @PostConstruct
     public void init() {
-
-        if (LOGGER.isInfoEnabled()) {
-        	LOGGER.info("init");
-        }
-
         scheduleJobService.initScheduleJob();
-
-        if (LOGGER.isInfoEnabled()) {
-        	LOGGER.info("end");
-        }
     }
 	
 }

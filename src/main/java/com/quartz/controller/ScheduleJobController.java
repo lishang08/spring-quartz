@@ -128,6 +128,11 @@ public class ScheduleJobController {
 		return "redirect:list-schedule-job.shtml";
 	}
 	
+	/**
+	 * 删除schedule job
+	 * @param scheduleJobId
+	 * @return
+	 */
 	@RequestMapping(value = "delete-schedule-job", method = RequestMethod.GET)
 	public String deleteScheduleJob(Long scheduleJobId) {
 		LOGGER.info("运行一次job...");
