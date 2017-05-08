@@ -66,4 +66,23 @@ public interface ScheduleJobService {
      * @param scheduleJobVo
      */
     public void delUpdate(ScheduleJobVo scheduleJobVo);
+    
+    /**
+     * 暂停schedule job
+     * @param scheduleJobVo
+     */
+    public void pauseJob(Long scheduleJobId);
+    
+    /**
+     * 恢复schedule job
+     * @param scheduleJobId
+     */
+    public void resumeJob(Long scheduleJobId);
+    
+    /**
+     * 运行一次schedule job
+     * @param scheduleJobId
+     */
+    public void runOnceJob(Long scheduleJobId);
+    
 }

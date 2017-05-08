@@ -187,4 +187,22 @@ public class ScheduleJobServiceImpl implements ScheduleJobService {
         //数据库直接更新即可
         jdbcDao.update(scheduleJob);
     }
+
+	@Override
+	public void pauseJob(Long  scheduleJobId) {
+		ScheduleJob scheduleJob = jdbcDao.get(ScheduleJob.class, scheduleJobId);
+		ScheduleUtils.pauseJob(scheduler, scheduleJob.getJobName(), scheduleJob.getJobGroup());
+	}
+
+	@Override
+	public void resumeJob(Long scheduleJobId) {
+		ScheduleJob scheduleJob = jdbcDao.get(ScheduleJob.class, scheduleJobId);
+		ScheduleUtils.resumeJob(scheduler, scheduleJob.getJobName(), scheduleJob.getJobGroup());
+	}
+
+	@Override
+	public void runOnceJob(Long scheduleJobId) {
+		ScheduleJob scheduleJob = jdbcDao.get(ScheduleJob.class, scheduleJobId);
+		ScheduleUtils.runOnce(scheduler, scheduleJob.getJobName(), scheduleJob.getJobGroup());
+	}
 }

@@ -47,6 +47,12 @@ public class ScheduleJobController {
 		return "input-schedule-job";
 	}
 
+	/**
+	 * 列出当前schedulejob和当前执行schedulejob
+	 * @param scheduleJobVo
+	 * @param modelMap
+	 * @return
+	 */
 	@RequestMapping(value = "list-schedule-job", method = RequestMethod.GET)
 	public String listScheduleJob(ScheduleJobVo scheduleJobVo, ModelMap modelMap) {
 		List<ScheduleJobVo> scheduleJobVos = scheduleJobService.getScheduleJobList(scheduleJobVo);
@@ -59,20 +65,22 @@ public class ScheduleJobController {
 		return "list-schedule-job";
 	}
 
+	/**
+	 * 保存schedulejob
+	 * @param scheduleJobVo
+	 * @return
+	 */
 	@RequestMapping(value = "save-schedule-job", method = RequestMethod.POST)
 	public String saveScheduleJob(ScheduleJobVo scheduleJobVo) {
-
 		// 测试用随便设个状态
 		scheduleJobVo.setStatus("1");
-
-		LOGGER.info("Alias name : " + scheduleJobVo.getAliasName());
-		LOGGER.info("Cron Expression : " + scheduleJobVo.getCronExpression());
-		LOGGER.info("JOB ID : " + scheduleJobVo.getScheduleJobId());
-		LOGGER.info("STATUS : " + scheduleJobVo.getStatus());
-		LOGGER.info("DESCRIPTION : " + scheduleJobVo.getDescription());
-		LOGGER.info("JOB NAME : " + scheduleJobVo.getJobName());
-		LOGGER.info("JOB GROUP " + scheduleJobVo.getJobGroup());
-
+//		LOGGER.info("Alias name : " + scheduleJobVo.getAliasName());
+//		LOGGER.info("Cron Expression : " + scheduleJobVo.getCronExpression());
+//		LOGGER.info("JOB ID : " + scheduleJobVo.getScheduleJobId());
+//		LOGGER.info("STATUS : " + scheduleJobVo.getStatus());
+//		LOGGER.info("DESCRIPTION : " + scheduleJobVo.getDescription());
+//		LOGGER.info("JOB NAME : " + scheduleJobVo.getJobName());
+//		LOGGER.info("JOB GROUP " + scheduleJobVo.getJobGroup());
 		if (scheduleJobVo.getScheduleJobId() == null) {
 			scheduleJobService.insert(scheduleJobVo);
 		} else if (StringUtils.equalsIgnoreCase(scheduleJobVo.getKeywords(), "delUpdate")) {
@@ -83,5 +91,50 @@ public class ScheduleJobController {
 		}
 		return "redirect:list-schedule-job.shtml";
 	}
-
+    
+	/**
+	 * 暂停schedule job
+	 * @param scheduleJobId
+	 * @return
+	 */
+	@RequestMapping(value = "pause-schedule-job", method = RequestMethod.GET)
+	public String pauseScheduleJob(Long scheduleJobId) {
+		LOGGER.info("暂停job...");
+		scheduleJobService.pauseJob(scheduleJobId);
+		return "redirect:list-schedule-job.shtml";
+	}
+	
+	/**
+	 * 恢复schedule job
+	 * @param scheduleJobId
+	 * @return
+	 */
+	@RequestMapping(value = "resume-schedule-job", method = RequestMethod.GET)
+	public String resumeScheduleJob(Long scheduleJobId) {
+		LOGGER.info("恢复job...");
+        scheduleJobService.resumeJob(scheduleJobId);		
+		return "redirect:list-schedule-job.shtml";
+	}
+	
+	/**
+	 * 运行一次schedule job
+	 * @param scheduleJobId
+	 * @return
+	 */
+	@RequestMapping(value = "run-once-schedule-job", method = RequestMethod.GET)
+	public String runOnceScheduleJob(Long scheduleJobId) {
+		LOGGER.info("运行一次job...");
+        scheduleJobService.runOnceJob(scheduleJobId);		
+		return "redirect:list-schedule-job.shtml";
+	}
+	
+	@RequestMapping(value = "delete-schedule-job", method = RequestMethod.GET)
+	public String deleteScheduleJob(Long scheduleJobId) {
+		LOGGER.info("运行一次job...");
+        scheduleJobService.delete(scheduleJobId);		
+		return "redirect:list-schedule-job.shtml";
+	}
+	
+	
+	
 }
